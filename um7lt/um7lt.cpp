@@ -144,3 +144,14 @@ float um7lt::getEulerDot(std::array<uint8_t, UM7LT_BUFFER_LENGTH> const &packet,
     yawRate = toInt[2].out;
     return toFloat[0].out;
 }
+
+void um7lt::setZeroGyros(std::array<uint8_t, UM7LT_BUFFER_LENGTH> &packet) noexcept {
+    packet[0] = 's';
+    packet[1] = 'n';
+    packet[2] = 'p';
+    packet[3] = 0x00;
+    packet[4] = 0xAD; // zero gyro command
+    packet[5] = ('s'+'n'+'p'+0x00+0xAD)>>8; // checksum?
+    packet[6] = ('s'+'n'+'p'+0x00+0xAD);
+}
+
