@@ -152,6 +152,6 @@ void um7lt::setZeroGyros(std::array<uint8_t, UM7LT_BUFFER_LENGTH> &packet) noexc
     packet[3] = 0x00;
     packet[4] = 0xAD; // zero gyro command
     packet[5] = ('s'+'n'+'p'+0x00+0xAD)>>8; // checksum?
-    packet[6] = ('s'+'n'+'p'+0x00+0xAD);
+    packet[6] = uint8_t('s'+'n'+'p'+0x00+0xAD);
 }
 
