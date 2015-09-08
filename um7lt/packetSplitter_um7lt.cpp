@@ -3,7 +3,7 @@
 //
 
 
-#include "um7lt_packetSplitter.h"
+#include "packetSplitter_um7lt.h"
 #include <stdexcept>
 #include <cstring>
 #include <iostream>
@@ -11,7 +11,7 @@
 
 
 
-um7lt_packetSplitter::um7lt_packetSplitter() noexcept :
+packetSplitter_um7lt::packetSplitter_um7lt() noexcept :
         packetBegin_(&(packet_[5])),
         packetEnd_(&(packet_[254])),
         ptrPacketCur_(packetBegin_),
@@ -19,7 +19,7 @@ um7lt_packetSplitter::um7lt_packetSplitter() noexcept :
         ptrPacketEnd_(nullptr) {}
 
 
-uint32_t um7lt_packetSplitter::splitPackets(uint8_t const *inputBuffer, uint32_t inputLength,
+uint32_t packetSplitter_um7lt::splitPackets(uint8_t const *inputBuffer, uint32_t inputLength,
                                             std::array<uint8_t, UM7LT_BUFFER_LENGTH> *outputPackets,
                                             uint32_t maxNumberOfPackets) noexcept {
 
@@ -60,7 +60,7 @@ uint32_t um7lt_packetSplitter::splitPackets(uint8_t const *inputBuffer, uint32_t
                 ++numberOfPackets;
                 if (maxNumberOfPackets <= numberOfPackets) return numberOfPackets;
             }
-            else std::cerr << "\tWARNING: [ um7lt_packetSplitter::splitPackets(...) ]: Different checksums.\n";
+            else std::cerr << "\tWARNING: [ packetSplitter_um7lt::splitPackets(...) ]: Different checksums.\n";
             ptrPacketEnd_ = nullptr;
             ptrPacketCur_ = packetBegin_;
         }
@@ -68,7 +68,7 @@ uint32_t um7lt_packetSplitter::splitPackets(uint8_t const *inputBuffer, uint32_t
         ++ptrPacketCur_;
         if (ptrPacketCur_ == packetEnd_) {
             ptrPacketCur_ = packetBegin_;
-            std::cerr << "\tWARNING: [ um7lt_packetSplitter::splitPackets(...) ]: Many outputPackets lost.\n";
+            std::cerr << "\tWARNING: [ packetSplitter_um7lt::splitPackets(...) ]: Many outputPackets lost.\n";
         }
     }
 
@@ -79,7 +79,7 @@ uint32_t um7lt_packetSplitter::splitPackets(uint8_t const *inputBuffer, uint32_t
 
 
 /*
-uint32_t um7lt_packetSplitter::splitPackets(uint8_t const *inputBuffer, uint32_t inputLength, uint8_t **outputPackets, uint32_t maxNumberOfPackets, uint32_t maxNumberOfBytes) {
+uint32_t packetSplitter_um7lt::splitPackets(uint8_t const *inputBuffer, uint32_t inputLength, uint8_t **outputPackets, uint32_t maxNumberOfPackets, uint32_t maxNumberOfBytes) {
     if (maxNumberOfPackets < 1 || maxNumberOfBytes < 8) return 0;
     uint32_t numberOfPackets = 0;
 
@@ -92,7 +92,7 @@ uint32_t um7lt_packetSplitter::splitPackets(uint8_t const *inputBuffer, uint32_t
                 if (*(--ptrTmp) == 'n') {
                     if (*(--ptrTmp) == 's') {
                         if (maxNumberOfBytes < (*ptrPacketCur_) + 7u)
-                            throw std::range_error(" [ um7lt_packetSplitter::splitPackets(...) ]: Maximum number of bytes is too small.\n");
+                            throw std::range_error(" [ packetSplitter_um7lt::splitPackets(...) ]: Maximum number of bytes is too small.\n");
                         if (((*ptrPacketCur_)&0xC0) == 0xC0) {
                             ptrPacketBegin_ = ptrTmp;
                             ptrPacketEnd_ = ptrPacketBegin_ + 7 + ((*ptrPacketCur_)&0x3C);
@@ -119,7 +119,7 @@ uint32_t um7lt_packetSplitter::splitPackets(uint8_t const *inputBuffer, uint32_t
                 ++numberOfPackets;
                 if (maxNumberOfPackets <= numberOfPackets) return numberOfPackets;
             }
-            else std::cerr << "\tWARNING: [ um7lt_packetSplitter::splitPackets(...) ]: Different checksums.\n";
+            else std::cerr << "\tWARNING: [ packetSplitter_um7lt::splitPackets(...) ]: Different checksums.\n";
             ptrPacketEnd_ = nullptr;
             ptrPacketCur_ = packetBegin_;
         }
@@ -127,7 +127,7 @@ uint32_t um7lt_packetSplitter::splitPackets(uint8_t const *inputBuffer, uint32_t
         ++ptrPacketCur_;
         if (ptrPacketCur_ == packetEnd_) {
             ptrPacketCur_ = packetBegin_;
-            std::cerr << "\tWARNING: [ um7lt_packetSplitter::splitPackets(...) ]: Many packets lost.\n";
+            std::cerr << "\tWARNING: [ packetSplitter_um7lt::splitPackets(...) ]: Many packets lost.\n";
         }
     }
 
@@ -137,7 +137,7 @@ uint32_t um7lt_packetSplitter::splitPackets(uint8_t const *inputBuffer, uint32_t
 
 
 
-void um7lt_packetSplitter::resetSpliting() noexcept {
+void packetSplitter_um7lt::resetSpliting() noexcept {
     ptrPacketEnd_ = nullptr;
     ptrPacketCur_ = packetBegin_;
 }

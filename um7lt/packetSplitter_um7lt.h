@@ -10,10 +10,10 @@
 
 
 
-class um7lt_packetSplitter {
+class packetSplitter_um7lt {
 public:
 
-    um7lt_packetSplitter() noexcept;
+    packetSplitter_um7lt() noexcept;
 
     uint32_t splitPackets(uint8_t const *inputBuffer, uint32_t inputLength, std::array<uint8_t,UM7LT_BUFFER_LENGTH> *outputPackets,uint32_t maxNumberOfPackets) noexcept;
     void resetSpliting() noexcept; // could be useful in timeouts
