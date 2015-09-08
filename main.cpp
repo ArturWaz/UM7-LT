@@ -1,6 +1,6 @@
 
 #include "um7lt/um7lt.h"
-#include "packetSplitter_um7lt.h"
+#include "um7lt/packetSplitter_um7lt.h"
 
 
 #include <cstdint>
