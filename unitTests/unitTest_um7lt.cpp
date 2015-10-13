@@ -22,7 +22,7 @@ BOOST_FIXTURE_TEST_SUITE(UM7LT,UnitTest_um7lt)
 
 
     BOOST_AUTO_TEST_CASE(Test_PacketSplitter_um7lt){
-
+        BOOST_CHECK_MESSAGE(false, "Unit tests didnt finished.");
     }
 
 
