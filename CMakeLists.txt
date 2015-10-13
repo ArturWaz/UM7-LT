@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.10)
 
 
-set(PROJECT_NAME CHRobotics)
+set(PROJECT_NAME unitTests_um7lt)
 project(${PROJECT_NAME})
 
 
@@ -18,5 +18,5 @@ endif ( UNIX )
 add_subdirectory(um7lt)
 
 
-add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries (${PROJECT_NAME} um7lt)
+add_executable(${PROJECT_NAME} unitTests/unitTest_um7lt.cpp)
+target_link_libraries (${PROJECT_NAME} um7lt boost_unit_test_framework)
